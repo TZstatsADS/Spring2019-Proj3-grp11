@@ -121,7 +121,7 @@ Call the train model and test model from library.
   + Input: an R object that contains a trained classifier.
   + Output: an R object of response predictions on the test set. If there are multiple classifiers under evaluation, there should be multiple sets of label predictions. 
 ```{r loadlib}
-source("../lib/train_new.R")
+source("../lib/train.R")
 source("../lib/test.R")
 ```
 
