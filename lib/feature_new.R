@@ -33,9 +33,9 @@ feature <- function(LR_dir, HR_dir, n_points=1000){
     
     ### step 2.2. save the corresponding 4 sub-pixels of imgHR in labMat
     
-    get_pixel <- function(IMG, row, col, channel){
+    get_pixel <- function(IMG, row, col){
       if(row >=1 && row <= dim(IMG)[1] && col >= 1 && col <= dim(IMG)[2]){
-        return(as.numeric(IMG[row, col, channel]))
+        return(as.numeric(IMG[row, col, ]))
       }
       else{
         return(0)
