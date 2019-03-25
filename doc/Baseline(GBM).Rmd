@@ -35,18 +35,13 @@ library("parallel")
 
 ### Step 0: specify directories.
 
-Set the working directory to the image folder. Specify the training and the testing set. For data without an independent test/validation set, you need to create your own testing data by random subsampling. In order to obain reproducible results, set.seed() whenever randomization is used. 
-
 ```{r wkdir, eval=FALSE}
-set.seed(2019)
-setwd("~/Desktop/GR5243/Project3/Spring2019-Proj3-grp11/doc") 
-# here replace it with your own path or manually set it in RStudio to where this rmd file is located. 
 # use relative path for reproducibility
-```
+set.seed(2019)
+setwd("~/Desktop/GR5243/Project3/Spring2019-Proj3-grp11/doc")
+# here replace it with own file path
 
-Provide directories for training images. Low-resolution (LR) image set and High-resolution (HR) image set will be in different subfolders. 
-```{r}
-train_dir <- "../data/train_set/" # This will be modified for different data sets.
+train_dir <- "../data/train_set/"
 train_LR_dir <- paste(train_dir, "LR/", sep="")
 train_HR_dir <- paste(train_dir, "HR/", sep="")
 train_label_path <- paste(train_dir, "label.csv", sep="") 
@@ -96,7 +91,7 @@ extra_label <- read.csv(train_label_path, colClasses=c("NULL", NA, NA))
   + Output: an RData file that contains extracted features and corresponding responses
 
 ```{r feature}
-source("../lib/feature_new.R")
+source("../lib/feature_new.R") #using feature_new
 
 tm_feature_train <- NA
 if(run.feature.train){
@@ -105,7 +100,7 @@ if(run.feature.train){
   label_train <- dat_train$label
 }
 
-save(dat_train, file="./output/feature_train.RData")
+save(dat_train, file="../output/feature_train.RData")
 ```
 
 
@@ -179,7 +174,7 @@ Feed the final training model with the completely holdout testing data.
   + Input: an R object that contains tuned predictors.
   + Output: construct high-resolution versions for each low-resolution test image.
 ```{r superresolution}
-source("../lib/superResolution_new.R")
+source("../lib/superResolution_new.R") #using superresolution_new
 test_dir <- "../data/test_set/" # This will be modified for different data sets.
 test_LR_dir <- paste(test_dir, "LR/", sep="")
 test_HR_dir <- paste(test_dir, "HR/", sep="")
