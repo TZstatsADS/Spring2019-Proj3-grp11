@@ -66,7 +66,7 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     imgHR_pred[base_row + 1, base_col + 1, ] <- predMat[, 4, ]
     
     # calculate MSE and PSNR
-    mse <- sum((imgHR - imgHR_pred)^2)/(3*dim(imgLR)[1]*2*dim(imgLR)[2])
+    mse <- sum((imgHR - imgHR_pred)^2)/(3*dim(imgLR)[1]*dim(imgLR)[2])
     psnr <- 20*log10(range(imgHR)[2]) - 10*log10(mse)
     PSNR <- append(PSNR, psnr)
     
