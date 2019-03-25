@@ -35,7 +35,7 @@ feature <- function(LR_dir, HR_dir, n_points=1000){
     
     get_pixel <- function(IMG, row, col){
       if(row >=1 && row <= dim(IMG)[1] && col >= 1 && col <= dim(IMG)[2]){
-        return(as.numeric(IMG[row, col, ]))
+        return(as.numeric(IMG[row, col]))
       }
       else{
         return(0)
@@ -74,7 +74,7 @@ feature <- function(LR_dir, HR_dir, n_points=1000){
       y4 <- get_pixel(HR_Data, 2*row, 2*col)
       
       label_pixels <- c(y1, y2, y3, y4)
-      label_pixels <- sub_pixels - ct
+      label_pixels <- label_pixels - ct
       return(list(neighbor = neighbor_value, labelpix = label_pixels))
     }
     
@@ -90,11 +90,11 @@ feature <- function(LR_dir, HR_dir, n_points=1000){
       
       for (k in c(1:n)) {
         Result <- neighbor_and_label(k, LR_channel, HR_channel, Sample_Points)
-        Result_LR_Neighbor_value[k, ] <- Result$neighbor
-        Result_sub_pixels[k,] <- Result$labelpix
+        neighbor_value[k, ] <- Result$neighbor
+        sub_pixels[k,] <- Result$labelpix
       }
       
-      return(list(neighbor_value = Result_LR_Neighbor_value, label = Result_sub_pixels))
+      return(list(neighbor_value = neighbor_value, label = sub_pixels))
     }
     
     ### step 3. repeat above for three channels
