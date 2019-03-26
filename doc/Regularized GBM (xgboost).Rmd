@@ -1,5 +1,5 @@
 ---
-title: "Baseline GBM"
+title: "Regularized GBM (xgboost)"
 author: "Group 11"
 output: html_document
 ---
@@ -26,6 +26,11 @@ if(!require("parallel")){
   install.packages("parallel")
 }
 
+if(!require("xgboost")){
+  install.packages("xgboost")
+}
+
+library("xgboost")
 library("EBImage")
 library("gbm")
 library("foreach")
@@ -38,7 +43,7 @@ library("parallel")
 ```{r wkdir, eval=FALSE}
 # use relative path for reproducibility
 set.seed(2019)
-setwd("~/Desktop/GR5243/Project3/Spring2019-Proj3-grp11/")
+setwd("C:\Users\zengy\Documents\GitHub\Spring2019-Proj3-spring2019-proj3-grp11")
 # here replace it with own file path
 
 train_dir <- "../data/train_set/"
