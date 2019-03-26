@@ -75,8 +75,9 @@ run.train=TRUE # run training set
 Here we compare the same xGBM with different maxium depth of trees
 
 ```{r model_setup}
-model_values <- seq(1, 5, 2)
-model_labels = paste("xGBM with depth =", model_values)
+##### need to experiment with these model_values #####
+model_values <- seq(200, 350, 50)
+model_labels = paste("XGBoost with nrounds =", model_values)
 model_labels
 ```
 
@@ -121,14 +122,14 @@ Call the train model and test model from library.
   + Input: an R object that contains a trained classifier.
   + Output: an R object of response predictions on the test set. If there are multiple classifiers under evaluation, there should be multiple sets of label predictions. 
 ```{r loadlib}
-source("../lib/train.R")
-source("../lib/test.R")
+source("../lib/train.xgboost.R")
+source("../lib/test.xgboost.R")
 ```
 
 #### Model selection with cross-validation
 * Do model selection by choosing among different values of training model parameters, that is, the interaction depth for GBM in this example. 
 ```{r runcv, message=FALSE, warning=FALSE}
-source("../lib/cross_validation.R")
+source("../lib/cross_validation_xgboost.R")
 
 if(run.cv){
   err_cv <- array(dim=c(length(model_values), 2))
@@ -136,15 +137,15 @@ if(run.cv){
     cat("k=", k, "\n")
     err_cv[k,] <- cv.function(feat_train, label_train, model_values[k], K)
   }
-  save(err_cv, file="../output/err_cv.RData")
+  save(err_cv, file="../output/err_cv_xgboost.RData")
 }
 ```
 
 Visualize cross-validation results. 
 ```{r cv_vis}
 if(run.cv){
-  load("../output/err_cv.RData")
-  plot(model_values, err_cv[,1], xlab="Interaction Depth", ylab="CV Error",
+  load("../output/err_cv_xgboost.RData")
+  plot(model_values, err_cv[,1], xlab="Iterations", ylab="CV Error",
        main="Cross Validation Error", type="n", ylim=c(0, 0.25))
   points(model_values, err_cv[,1], col="blue", pch=16)
   lines(model_values, err_cv[,1], col="blue")
@@ -168,7 +169,7 @@ par_best <- list(iter=model_best)
 ```{r final_train}
 tm_train=NA
 tm_train <- system.time(fit_train <- train(feat_train, label_train, par_best))
-save(fit_train, file="../output/fit_train.RData")
+save(fit_train, file="../output/fit_train_xgboost.RData")
 ```
 
 ### Step 5: Super-resolution for test images
@@ -186,7 +187,7 @@ test_HR_dir <- paste(test_dir, "HR/", sep="")
 
 tm_test=NA
 if(run.test){
-  load(file="../output/fit_train.RData")
+  load(file="../output/fit_train_xgboost.RData")
   tm_test <- system.time(superResolution(test_LR_dir, test_HR_dir, fit_train))
 }
 ```
