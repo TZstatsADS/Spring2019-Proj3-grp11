@@ -43,7 +43,7 @@ library("parallel")
 ```{r wkdir, eval=FALSE}
 # use relative path for reproducibility
 set.seed(2019)
-setwd("C:\Users\zengy\Documents\GitHub\Spring2019-Proj3-spring2019-proj3-grp11")
+setwd("C:/Users/zengy/Documents/GitHub/Spring2019-Proj3-spring2019-proj3-grp11")
 # here replace it with own file path
 
 train_dir <- "../data/train_set/"
@@ -72,11 +72,12 @@ run.feature.test=TRUE # process features for test set
 run.train=TRUE # run training set
 ```
 
-Using cross-validation or independent test set evaluation, we compare the performance of models with different specifications. In this example, we use GBM with different `depth`. In the following chunk, we list, in a vector, setups (in this case, `depth`) corresponding to models that we will compare. In your project, you might compare very different classifiers. You can assign them numerical IDs and labels specific to your project. 
+Here we compare the same xGBM with different maxium depth of trees
 
 ```{r model_setup}
 model_values <- seq(1, 5, 2)
-model_labels = paste("GBM with depth =", model_values)
+model_labels = paste("xGBM with depth =", model_values)
+model_labels
 ```
 
 ### Step 2: import training images class labels.
@@ -89,8 +90,7 @@ extra_label <- read.csv(train_label_path, colClasses=c("NULL", NA, NA))
 
 ### Step 3: construct features and responses
 
-`feature.R` should be the wrapper for all your feature engineering functions and options. The function `feature( )` should have options that correspond to different scenarios for your project and produces an R object that contains features and responses that are required by all the models you are going to evaluate later. 
-+ `feature.R`
++ `feature_new.R`: extracting features
   + Input: a path for low-resolution images.
   + Input: a path for high-resolution images.
   + Output: an RData file that contains extracted features and corresponding responses
