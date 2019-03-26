@@ -161,7 +161,7 @@ if(run.cv){
   model_best <- model_values[which.min(err_cv[,1])]
 }
 
-par_best <- list(depth=model_best)
+par_best <- list(iter=model_best)
 ```
 
 * Train the model with the entire training set using the selected model (model parameter) via cross-validation.
