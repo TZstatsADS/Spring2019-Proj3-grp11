@@ -29,8 +29,8 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     ###           save (the neighbor 8 pixels - central pixel) in featMat
     ###           tips: padding zeros for boundary points
     
-    row <- (1 : dim(imgLR)[1] * dim(imgLR)[2] - 1) %% dim(imgLR)[1] + 1
-    col <- (1 : dim(imgLR)[1] * dim(imgLR)[2] - 1) %/% dim(imgLR)[1] + 1
+    row <- (1 : (dim(imgLR)[1] * dim(imgLR)[2]) - 1) %% dim(imgLR)[1] + 1
+    col <- (1 : (dim(imgLR)[1] * dim(imgLR)[2]) - 1) %/% dim(imgLR)[1] + 1
     
     for (j in c(1:3)) {
       new_imgLR <- cbind(0, imgLR[ , , j], 0)
