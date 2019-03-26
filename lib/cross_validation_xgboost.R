@@ -4,7 +4,7 @@
 
 ### Project 3
 
-cv.function <- function(X.train, y.train, iter, K){
+cv.function <- function(X.train, y.train, dp, nr, K){
   
   n <- dim(y.train)[1]
   n.fold <- floor(n/K)
@@ -17,9 +17,9 @@ cv.function <- function(X.train, y.train, iter, K){
     test.data <- X.train[s == i, ,]
     test.label <- y.train[s == i, ,]
     
-    par <- list(iter = iter)
+    par <- list(dp = dp, nr = nr)
     fit <- train(train.data, train.label, par)
-    pred <- test(fit, test.data)  
+    pred <- test(fit, test.data)
     cv.error[i] <- mean((pred - test.label)^2)  
     
   }			

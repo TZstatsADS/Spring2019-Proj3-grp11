@@ -22,9 +22,12 @@ train <- function(dat_train, label_train, par=NULL){
   
   ### Train with XGBoost
   if(is.null(par)){
-    iter <- 200
-  } else {
-    iter <- par$iter
+    dp <- 5
+    nr <- 10
+  } 
+  else {
+    dp <- par$dp
+    nr <- par$nr
   }
   
   ### the dimension of response arrat is * x 4 x 3, which requires 12 classifiers
@@ -35,10 +38,11 @@ train <- function(dat_train, label_train, par=NULL){
     c2 <- (i-c1) %/% 4 + 1
     featMat <- dat_train[, , c2]
     labMat <- label_train[, c1, c2]
-    # try booster = "gblinear", default is gbtree
-    fit_xgb <- xgboost(data = featMat, label = labMat,
-                       nrounds = iter,
-                       verbose=0)
+    
+    #need to convert data into a xgb.Dmatrix type for faster computation
+    dt_DM = xgb.DMatrix(featMat, label = labMat)
+    fit_xgb <- xgboost(data = dt_DM, label = labMat, verbose=0, booster = "gblinear", seed = 1, lambda = 1, alpha = 0,
+                       max_depth=dp, nrounds = nr)
     
     modelList[[i]] <- list(fit=fit_xgb)
   }
