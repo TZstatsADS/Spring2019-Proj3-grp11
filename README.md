@@ -18,9 +18,9 @@ Term: Spring 2019
 **Contribution statement**: 
 Zixiao Wang worked on the baseline model, GBM, including cross validation, feature and superResolution.
 Yiyang Zeng worked on XGB model construction, creating cross validation methodology on two parameters for XGB and making presentation. 
+Hyubin Yoo worked on attempting the SRCNN model in python. 
 Shuang Lu worked on XGB model construction, including cross validation (one parameter), feature and superResolution. 
 Sitong Liu worked on improving XGB model and attempting the SRCNN model in python. 
-Hyubin Yoo worked on attempting the SRCNN model in python. 
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
