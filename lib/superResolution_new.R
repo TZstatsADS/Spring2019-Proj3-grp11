@@ -15,13 +15,14 @@ superResolution <- function(LR_dir, HR_dir, modelList){
   ### load libraries
   library("EBImage")
   n_files <- length(list.files(LR_dir))
+  #n_files <- 20
   PSNR <- NULL
   MSE <- NULL
   
   ### read LR/HR image pairs
   for(i in 1:n_files){
     imgLR <- readImage(paste0(LR_dir,  "img", "_", sprintf("%04d", i), ".jpg"))
-    imgHR <- readImage(paste0(HR_dir,  "img_", sprintf("%04d", i), ".jpg"))
+    #imgHR <- readImage(paste0(HR_dir,  "img_", sprintf("%04d", i), ".jpg"))
     pathHR <- paste0(HR_dir,  "img", "_", sprintf("%04d", i), ".jpg")
     featMat <- array(NA, c(dim(imgLR)[1] * dim(imgLR)[2], 8, 3))
     
@@ -57,7 +58,7 @@ superResolution <- function(LR_dir, HR_dir, modelList){
       predMat[, , k] <- predMat[, , k] + imgLR[, ,k][cbind(row, col)]
     }
     
-    imgHR_pred <- readImage(paste0(HR_dir,  "img_", sprintf("%04d", i), ".jpg"))
+    imgHR_pred <- array(NA,c(dim(imgLR)[1]*2,dim(imgLR)[2]*2,3))
     base_row <- seq(1, 2 * dim(imgLR)[1], 2)
     base_col <- seq(1, 2 * dim(imgLR)[2], 2)
     imgHR_pred[base_row, base_col, ] <- predMat[, 1, ]
@@ -66,12 +67,12 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     imgHR_pred[base_row + 1, base_col + 1, ] <- predMat[, 4, ]
     
     # calculate MSE and PSNR
-    mse <- sum((imgHR - imgHR_pred)^2)/(3*dim(imgLR)[1]*dim(imgLR)[2])
-    psnr <- 20*log10(range(imgHR)[2]) - 10*log10(mse)
-    PSNR <- append(PSNR, psnr)
-    
+    # mse <- sum((imgHR - imgHR_pred)^2)/(3*dim(imgLR)[1]*dim(imgLR)[2])
+    # psnr <- 20*log10(range(imgHR)[2]) - 10*log10(mse)
+    # PSNR <- append(PSNR, psnr)
+    imgHR <- Image(imgHR_pred, colormode="Color")
     writeImage(imgHR, pathHR)
   }
-  PSNR <- sum(PSNR)/n_files
-  return(PSNR)
+  # PSNR <- sum(PSNR)/n_files
+  # return(PSNR)
 }
