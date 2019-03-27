@@ -41,7 +41,7 @@ train <- function(dat_train, label_train, par=NULL){
     
     #need to convert data into a xgb.Dmatrix type for faster computation
     dt_DM = xgb.DMatrix(featMat, label = labMat)
-    fit_xgb <- xgboost(data = dt_DM, label = labMat, verbose=0, booster = "gblinear", seed = 1, lambda = 1, alpha = 0,
+    fit_xgb <- xgboost(data = dt_DM, verbose=0, booster = "gblinear", seed = 1, lambda = 1, alpha = 0,
                        max_depth=dp, nrounds = nr)
     
     modelList[[i]] <- list(fit=fit_xgb)
