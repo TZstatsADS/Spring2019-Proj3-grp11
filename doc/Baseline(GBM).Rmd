@@ -40,7 +40,9 @@ library("parallel")
 set.seed(2019)
 setwd("~/Desktop/GR5243/Project3/Spring2019-Proj3-grp11/")
 # here replace it with own file path
+```
 
+```{r}
 train_dir <- "../data/train_set/"
 train_LR_dir <- paste(train_dir, "LR/", sep="")
 train_HR_dir <- paste(train_dir, "HR/", sep="")
