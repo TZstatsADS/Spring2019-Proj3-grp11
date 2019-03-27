@@ -5,13 +5,13 @@
 
 Term: Spring 2019
 
-+ Team ##
++ Team 11
 + Team members
-	+ Sitong Liu
-	+ Shuang Lu
-	+ Zixiao Wang
-	+ Hyunbin Yoo
-	+ Yiyang Zeng
+	+ Sitong Liu (sl4460)
+	+ Shuang Lu (sl4397)
+	+ Zixiao Wang (zw2513)
+	+ Hyunbin Yoo (hy2506)
+	+ Yiyang Zeng (yz3403)
 
 + Project summary: In this project, we created a classification engine for enhance the resolution of images. We created our baseline model using gradient boosting model, and improvement model using XGB model. To improve the effiency of the XGB model, we have improved our cross validation, feature and supersolution. Also, while testing the best model for improvement model, we have tried KNN model in python and XGB model, we finally decide to use XGB model because of the high PSNR, 26.85, using 2000 images. 
 	
